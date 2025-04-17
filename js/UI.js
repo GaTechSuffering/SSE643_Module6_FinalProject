@@ -123,16 +123,21 @@ export function updateTimerText() {
   timerTexture.needsUpdate = true;
 }
 
-// Resets the score on resetGame()
+// Reset the score on resetGame()
 export function resetScore() {
   score = -10;
   updateScore();
 }
 
-// Resets the timer on resetGame()
+// Reset the timer on resetGame()
 export function resetGameTimer() {
   gameStartTime = Date.now();
   updateTimerText();
+}
+
+// Reset skill on resetGame()
+export function resetSkill() {
+  lastActivated = -cooldown; 
 }
 
 // Helper function to update score
@@ -151,10 +156,14 @@ export function reduceHP() {
   }
 }
 
+export const clock = new THREE.Clock();
+export let isShieldOn = false;
+
+const shieldDuration = 5;
+
+let shieldStartTime = 0;
 let cooldown = 30;
 let lastActivated = -cooldown; 
-
-export const clock = new THREE.Clock();
 
 export function updateShieldReady() {
   const elapsed = clock.getElapsedTime();
@@ -175,10 +184,7 @@ function updateShieldPosition() {
   shieldOn.position.copy(worldPos);
 }
 
-export let isShieldOn = false;
-let shieldStartTime = 0;
-const shieldDuration = 5;
-
+// Use skill when ready
 export function useSkill() {
   const elapsed = clock.getElapsedTime();
     if (elapsed - lastActivated >= cooldown) {
@@ -187,6 +193,7 @@ export function useSkill() {
     }
 }
 
+// Turn on shield once it is available and used
 function activateShield() {
   shieldOn.visible = true;
   shieldStartTime = clock.getElapsedTime();

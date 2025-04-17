@@ -2,7 +2,7 @@ import { scene, getCameraBounds } from './script.js';
 import { enemies } from './enemy.js';
 import { bullets, createBullet } from './bullets.js';
 import { enemyBullets } from './enemyBullets.js';
-import { score, gameStartTime, createUI, reduceHP, resetScore, resetGameTimer, useSkill } from './UI.js';
+import { score, gameStartTime, createUI, reduceHP, useSkill, resetScore, resetGameTimer, resetSkill } from './UI.js';
 
 export let sprite;
  
@@ -51,24 +51,24 @@ export function setupPlayer() {
       createBullet();
     }
 
-    if (e.key === 'b') {
+    if (e.key === 'b' || e.key === 'B') {
       useSkill();
     }
 
     switch (e.key) {
-      case 'w': case 'ArrowUp': keyboard.up = true; break;
-      case 'a': case 'ArrowLeft': keyboard.left = true; break;
-      case 's': case 'ArrowDown': keyboard.down = true; break;
-      case 'd': case 'ArrowRight': keyboard.right = true; break;
+      case 'w': case 'W': case 'ArrowUp': keyboard.up = true; break;
+      case 'a': case 'A': case 'ArrowLeft': keyboard.left = true; break;
+      case 's': case 'S': case 'ArrowDown': keyboard.down = true; break;
+      case 'd': case 'D': case 'ArrowRight': keyboard.right = true; break;
     }
   });
 
   document.addEventListener('keyup', (e) => {
     switch (e.key) {
-      case 'w': case 'ArrowUp': keyboard.up = false; break;
-      case 'a': case 'ArrowLeft': keyboard.left = false; break;
-      case 's': case 'ArrowDown': keyboard.down = false; break;
-      case 'd': case 'ArrowRight': keyboard.right = false; break;
+      case 'w': case 'W': case 'ArrowUp': keyboard.up = false; break;
+      case 'a': case 'A': case 'ArrowLeft': keyboard.left = false; break;
+      case 's': case 'S': case 'ArrowDown': keyboard.down = false; break;
+      case 'd': case 'D': case 'ArrowRight': keyboard.right = false; break;
     }
   });  
 }
@@ -152,6 +152,7 @@ function resetGame() {
   createUI();
   resetScore();
   resetGameTimer();
+  resetSkill();
   resetArray(enemies);
   resetArray(bullets);
   resetArray(enemyBullets);

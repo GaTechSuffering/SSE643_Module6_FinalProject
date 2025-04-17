@@ -133,13 +133,15 @@ function animate() {
   // Update enemies
   updateEnemies();
 
+  // Check/Update shield skill when ready
   updateShieldReady();
   updateShield();
 
+  // If the shield skill is not active, check for collisions
   if (!isShieldOn) {
-  // Check for collisions between enemy bullets and player
-  let hit = checkPlayerCollisions();
-  if (hit) explosion.play();
+    // Check for collisions between enemy bullets and player
+    let hit = checkPlayerCollisions();
+    if (hit) explosion.play();
   }
 
   // Check for collisions between player bullets and enemies
