@@ -51,24 +51,24 @@ export function setupPlayer() {
       createBullet();
     }
 
-    if (e.key === 'b' || e.key === 'B') {
+    if (e.key.toLowerCase() === 'b') {
       useSkill();
     }
 
-    switch (e.key) {
-      case 'w': case 'W': case 'ArrowUp': keyboard.up = true; break;
-      case 'a': case 'A': case 'ArrowLeft': keyboard.left = true; break;
-      case 's': case 'S': case 'ArrowDown': keyboard.down = true; break;
-      case 'd': case 'D': case 'ArrowRight': keyboard.right = true; break;
+    switch (e.key.toLowerCase()) {
+      case 'w': case 'ArrowUp': keyboard.up = true; break;
+      case 'a': case 'ArrowLeft': keyboard.left = true; break;
+      case 's': case 'ArrowDown': keyboard.down = true; break;
+      case 'd': case 'ArrowRight': keyboard.right = true; break;
     }
   });
 
   document.addEventListener('keyup', (e) => {
-    switch (e.key) {
-      case 'w': case 'W': case 'ArrowUp': keyboard.up = false; break;
-      case 'a': case 'A': case 'ArrowLeft': keyboard.left = false; break;
-      case 's': case 'S': case 'ArrowDown': keyboard.down = false; break;
-      case 'd': case 'D': case 'ArrowRight': keyboard.right = false; break;
+    switch (e.key.toLowerCase()) {
+      case 'w': case 'ArrowUp': keyboard.up = false; break;
+      case 'a': case 'ArrowLeft': keyboard.left = false; break;
+      case 's': case 'ArrowDown': keyboard.down = false; break;
+      case 'd': case 'ArrowRight': keyboard.right = false; break;
     }
   });  
 }
