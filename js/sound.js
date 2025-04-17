@@ -1,4 +1,21 @@
-import { paused, camera, listener, audioLoader } from './script.js';
+import { paused, listener, audioLoader } from './script.js';
+import { isShieldOn } from './UI.js';
+
+let gameStartFirst = false;
+
+// Audio for game start jingle 
+const gameStart = new THREE.Audio(listener);
+audioLoader.load('./game_start.mp3', function (buffer) {
+  gameStart.setBuffer(buffer);
+  gameStart.setVolume(1);
+
+  window.addEventListener('click', () => {
+    if (!gameStartFirst) {
+      gameStart.play();
+      gameStartFirst = true;
+    }
+  });
+});
 
 // Audio for background music
 export const music = new THREE.Audio(listener);

@@ -74,6 +74,7 @@ function updateParticles() {
 export let paused = true;
 const startScreen = document.getElementById('startScreen');
 
+
 // On click start screen, begin game (animation)
 startScreen.addEventListener('click', () => {
   // Hide the overlay
@@ -115,6 +116,15 @@ audioLoader.load('./enemy_explosion.mp3', function (buffer) {
   enemyExplosion.setVolume(0.50);
 });
 
+// Audio for shield ready 
+export const shieldSound = new THREE.Audio(listener);
+audioLoader.load('./shield_ready.mp3', function (buffer) {
+  shieldSound.setBuffer(buffer);
+  shieldSound.setVolume(0.25);
+});
+
+let shieldPlayOnce = false;
+
 function animate() {
   requestAnimationFrame(animate);
 
@@ -134,7 +144,11 @@ function animate() {
   updateEnemies();
 
   // Check/Update shield skill when ready
-  updateShieldReady();
+  const isShieldReady = updateShieldReady();
+  if (isShieldReady && !shieldPlayOnce) {
+    shieldSound.play();
+  }
+  shieldPlayOnce = isShieldReady;
   updateShield();
 
   // If the shield skill is not active, check for collisions
@@ -195,10 +209,20 @@ export function getCameraBounds() {
   };
 }
 
-function onWindowResize() {
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+// Force user to go full screen on click
+// You are playing this game on my terms
+function goFullscreen() {
+  const canvas = renderer.domElement;
+
+  if (canvas.requestFullscreen) { // All other browsers
+    canvas.requestFullscreen();
+  } else if (canvas.webkitRequestFullscreen) { // Safari
+    canvas.webkitRequestFullscreen();
+  } else if (canvas.msRequestFullscreen) { // IE/Edge
+    canvas.msRequestFullscreen();
+  }
 }
 
-window.addEventListener('resize', onWindowResize);
+document.addEventListener('click', () => {
+  goFullscreen();
+});

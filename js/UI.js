@@ -163,7 +163,7 @@ const shieldDuration = 5;
 
 let shieldStartTime = 0;
 let cooldown = 30;
-let lastActivated = -cooldown; 
+let lastActivated = 0; 
 
 export function updateShieldReady() {
   const elapsed = clock.getElapsedTime();
@@ -175,6 +175,9 @@ export function updateShieldReady() {
 
   // Change the bar's colour to white when ready
   cooldownBar.material.color.set(ratio >= 1 ? 0xFFFFFF : 0xFF0000);
+
+  if (ratio == 1) return true;
+  return false;
 }
 
 // Keep shield positioned over player sprite
