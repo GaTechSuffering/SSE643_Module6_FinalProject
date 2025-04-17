@@ -44,8 +44,8 @@ audioLoader.load('./laser.mp3', function (buffer) {
   laser.setVolume(0.25);
 });
 
-window.addEventListener('keydown', (event) => {
-  if (event.code === 'Space' && paused == false) {
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && paused == false) {
     if (listener.context.state === 'suspended') {
       // Resume audio if blocked by browser
       listener.context.resume();

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Capstone Project</title>
   <link rel="shortcut icon" href="#">
-  <link rel="stylesheet" href="style.css">
   <style>
     body { margin: 0; }
     canvas { display: block; }
@@ -13,7 +12,6 @@
   </div>
 </head>
 <body>
-  <canvas id="canvas"></canvas> 
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
   <script type="module" src="js/script.js"></script>
@@ -48,18 +46,22 @@
   <h2>Click to Start</h2>
   </div>
 
-  <div id="pauseOverlay" style="
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 24px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;">
-  <p>⏸ Game Paused</p>
-  </div>
+  <div id="gameContainer" style="position: relative; width: 100%; height: 100%;">
+    <canvas id="canvas"></canvas> 
 
+    <div id="pauseOverlay" style="
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 2vw;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;">
+    <p>⏸ Game Paused</p>
+    </div>
+  </div>
+  
 </body>
 </html>
