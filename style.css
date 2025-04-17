@@ -1,0 +1,32 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    font-family: Arial, sans-serif;
+}
+
+.ui-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.controls-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.controls-panel li {
+    margin-bottom: 5px;
+}

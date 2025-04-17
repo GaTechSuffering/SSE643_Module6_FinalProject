@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capstone Project</title>
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { margin: 0; }
+    canvas { display: block; }
+  </style>
+  </div>
+</head>
+<body>
+  <canvas id="canvas"></canvas> 
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  <script type="module" src="js/script.js"></script>
+  <script type="module" src="js/player.js"></script>
+  <script type="module" src="js/bullets.js"></script>
+  <script type="module" src="js/enemyBullets.js"></script>
+  <script type="module" src="js/UI.js"></script>
+  <script type="module" src="js/sound.js"></script>
+
+  <div id="startScreen" style="
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'PressStart2P', monospace;
+  font-size: 18px;
+  z-index: 999;
+  text-align: center;
+  cursor: pointer;">
+  <h1>SSE 643 Advanced Graphics Interface: Final Project</h1>
+  <h1>"Man, Those Ships Look Dangerous"</h1>
+  <h4>Controls</h4>
+  <h4>WASD/Arrow Keys: Move</h4>
+  <h4>Spacebar: Shoot</h4>
+  <h4>P: Pause Game</h4>
+  <h2>Click to Start</h2>
+  </div>
+
+  <div id="pauseOverlay" style="
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;">
+  <p>⏸ Game Paused</p>
+  </div>
+
+</body>
+</html>
