@@ -4,18 +4,14 @@ import { enemies, createEnemy, updateEnemies, checkCollisions } from './enemy.js
 import { createEnemyBullet, updateEnemyBullets } from './enemyBullets.js';
 import { createUI, updateTimerText, resetGameTimer, updateShieldReady, updateShield, isShieldOn } from './UI.js';
 
-// Fixed width and height of aspect ratio/resolution
-const WIDTH = 1920;
-const HEIGHT = 1080;
-
 // Basic Scene Setup
 export let scene = new THREE.Scene();
-export let camera = new THREE.PerspectiveCamera(15, WIDTH / HEIGHT, 0.1, 10000);
+export let camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.1, 10000);
 let renderer = new THREE.WebGLRenderer({
   canvas: document.getElementById('canvas'),
   antialias: true
 });
-renderer.setSize(WIDTH, HEIGHT);
+renderer.setSize(window.innerWidth, window.innerHeight);
 
 // Position camera to view the "2D" scene
 camera.position.set(0, 0, 100);
@@ -194,8 +190,8 @@ setInterval(() => {
 
 // Convert screen coordinates to "world" coordinates for boundary check
 function screenToWorld(x, y) {
-  let worldX = (x / WIDTH) * 2 - 1;
-  let worldY = -(y / HEIGHT) * 2 + 1;
+  let worldX = (x / window.innerWidth) * 2 - 1;
+  let worldY = -(y / window.innerHeight) * 2 + 1;
   return { x: worldX * camera.far / camera.position.z, y: worldY * camera.far / camera.position.z };
 }
 
@@ -212,21 +208,3 @@ export function getCameraBounds() {
     maxY: cameraHeight / 2,
   };
 }
-
-// Force user to go full screen on click
-// You are playing this game on my terms
-function goFullscreen() {
-  const container = document.getElementById('gameContainer');
-
-  if (container.requestFullscreen) { // All other browsers
-    container.requestFullscreen();
-  } else if (container.webkitRequestFullscreen) { // Safari
-    container.webkitRequestFullscreen();
-  } else if (container.msRequestFullscreen) { // IE/Edge
-    container.msRequestFullscreen();
-  }
-}
-
-document.addEventListener('click', () => {
-  goFullscreen();
-});

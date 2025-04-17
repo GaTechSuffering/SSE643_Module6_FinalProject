@@ -137,7 +137,11 @@ export function resetGameTimer() {
 
 // Reset skill on resetGame()
 export function resetSkill() {
-  lastActivated = -cooldown; 
+  isShieldOn = false;
+  shieldStartTime = 0;
+  const elapsed = clock.getElapsedTime();
+  lastActivated = elapsed;
+  shieldOn.visible = false;
 }
 
 // Helper function to update score
