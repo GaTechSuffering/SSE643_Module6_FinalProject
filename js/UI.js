@@ -1,4 +1,4 @@
-import { scene, getCameraBounds } from './script.js';
+import { scene, getCameraBounds, gameStartTime } from './script.js';
 import { HP_Pool } from './player.js';
 
 // Create heart sprites
@@ -75,8 +75,6 @@ export function createUI() {
     return { updateScore, scoreSprite };
   });
 }
-
-export let gameStartTime = Date.now();
 
 export function updateTimerText() {
   const elapsed = Math.floor((Date.now() - gameStartTime) / 1000);

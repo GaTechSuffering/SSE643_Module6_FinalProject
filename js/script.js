@@ -74,12 +74,15 @@ function updateParticles() {
 export let paused = true;
 const startScreen = document.getElementById('startScreen');
 
+export let gameStartTime = Date.now();
+
 // On click start screen, begin game (animation)
 startScreen.addEventListener('click', () => {
   // Hide the overlay
   startScreen.style.display = 'none';
 
   paused = false;
+  gameStartTime = Date.now();
 
   // Start animation/game loop
   animate();

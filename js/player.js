@@ -1,8 +1,8 @@
-import { scene, getCameraBounds } from './script.js';
+import { scene, getCameraBounds, gameStartTime } from './script.js';
 import { enemies } from './enemy.js';
 import { bullets, createBullet } from './bullets.js';
 import { enemyBullets } from './enemyBullets.js';
-import { score, gameStartTime, createUI, reduceHP, resetScore, resetGameTimer } from './UI.js';
+import { score, createUI, reduceHP, resetScore, resetGameTimer } from './UI.js';
 
 export let sprite;
  
