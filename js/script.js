@@ -2,7 +2,7 @@ import { setupPlayer, handlePlayerMovement, checkPlayerCollisions } from './play
 import { updateBullets } from './bullets.js';
 import { enemies, createEnemy, updateEnemies, checkCollisions } from './enemy.js';
 import { createEnemyBullet, updateEnemyBullets } from './enemyBullets.js';
-import { createUI, updateTimerText } from './UI.js';
+import { createUI, updateTimerText, resetGameTimer } from './UI.js';
 
 // Basic Scene Setup
 export let scene = new THREE.Scene();
@@ -74,15 +74,13 @@ function updateParticles() {
 export let paused = true;
 const startScreen = document.getElementById('startScreen');
 
-export let gameStartTime = Date.now();
-
 // On click start screen, begin game (animation)
 startScreen.addEventListener('click', () => {
   // Hide the overlay
   startScreen.style.display = 'none';
 
   paused = false;
-  gameStartTime = Date.now();
+  resetGameTimer();
 
   // Start animation/game loop
   animate();
