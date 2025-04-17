@@ -2,7 +2,7 @@ import { scene, getCameraBounds } from './script.js';
 import { enemies } from './enemy.js';
 import { bullets, createBullet } from './bullets.js';
 import { enemyBullets } from './enemyBullets.js';
-import { score, gameStartTime, createUI, reduceHP, resetScore } from './UI.js';
+import { score, gameStartTime, createUI, reduceHP, resetScore, resetGameTimer } from './UI.js';
 
 export let sprite;
  
@@ -110,7 +110,7 @@ export function checkPlayerCollisions() {
         const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
         // Game over screen with prompt to allow the user to play again
-        alert(`💀 Game over!\n🏆 Score: ${score}\n⏱️ Time Survived:${timeStr}\n🔁 Click \'OK\' to play again.\n`);
+        alert(`💀 Game over!\n🏆 Score: ${score}\n⏱️ Time Survived: ${timeStr}\n🔁 Click \'OK\' to play again.\n`);
         resetGame();
       }
 
@@ -147,6 +147,7 @@ function resetGame() {
   keyboard.right = false;
   createUI();
   resetScore();
+  resetGameTimer();
   resetArray(enemies);
   resetArray(bullets);
   resetArray(enemyBullets);

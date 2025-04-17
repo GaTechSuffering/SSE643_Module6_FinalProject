@@ -100,7 +100,7 @@ export function resetScore() {
 }
 
 // Resets the timer on resetGame()
-function resetGameTimer() {
+export function resetGameTimer() {
   gameStartTime = Date.now();
   updateTimerText();
 }

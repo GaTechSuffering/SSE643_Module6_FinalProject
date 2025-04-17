@@ -62,7 +62,7 @@ function createCircleBullet(enemy) {
 // Function to create a triple bullet
 function createTripleBullet(enemy) {
   const bulletGeometry = new THREE.SphereGeometry(0.2, 8, 8);
-  const bulletMaterial = new THREE.MeshBasicMaterial({ color: 0x0000FF });
+  const bulletMaterial = new THREE.MeshBasicMaterial({ color: 0x90D5FF });
 
   // Angles for the three bullets (straight, left, right)
   const bulletAngles = [Math.PI, 5*Math.PI / 6, 7 * Math.PI / 6];

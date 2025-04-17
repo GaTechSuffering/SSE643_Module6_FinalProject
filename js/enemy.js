@@ -34,7 +34,7 @@ export function createEnemy() {
 
     let enemy = new THREE.Sprite(enemyMaterial);
     enemy.scale.set(2,2,1);
-    let xPos = getCameraBounds().maxX;
+    let xPos = getCameraBounds().maxX + 10;
     let yPos = Math.random() * (getCameraBounds().maxY - getCameraBounds().minY) + getCameraBounds().minY;
   
     // Set random position
