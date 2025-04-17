@@ -2,7 +2,7 @@ import { setupPlayer, handlePlayerMovement, checkPlayerCollisions } from './play
 import { updateBullets } from './bullets.js';
 import { enemies, createEnemy, updateEnemies, checkCollisions } from './enemy.js';
 import { createEnemyBullet, updateEnemyBullets } from './enemyBullets.js';
-import { createUI, updateTimerText, resetGameTimer } from './UI.js';
+import { createUI, updateTimerText, resetGameTimer, updateShieldReady, updateShield, isShieldOn } from './UI.js';
 
 // Basic Scene Setup
 export let scene = new THREE.Scene();
@@ -133,9 +133,14 @@ function animate() {
   // Update enemies
   updateEnemies();
 
+  updateShieldReady();
+  updateShield();
+
+  if (!isShieldOn) {
   // Check for collisions between enemy bullets and player
   let hit = checkPlayerCollisions();
   if (hit) explosion.play();
+  }
 
   // Check for collisions between player bullets and enemies
   let enemyHit = checkCollisions();

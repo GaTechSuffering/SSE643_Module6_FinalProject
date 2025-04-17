@@ -1,10 +1,12 @@
 import { scene, getCameraBounds } from './script.js';
-import { HP_Pool } from './player.js';
+import { sprite, HP_Pool } from './player.js';
 
 // Create heart sprites
 const hearts = [];
 
 export let score = 0;
+
+const loader = new THREE.TextureLoader();
 
 // Create canvas for score text
 const scoreCanvas = document.createElement('canvas');
@@ -36,9 +38,27 @@ timerCtx.fillText(`Time: 00:00`, 10, 40);
 const timerTexture = new THREE.CanvasTexture(timerCanvas);
 const timerMaterial = new THREE.SpriteMaterial({ map: timerTexture, transparent: true });
 
-export function createUI() {
-  const loader = new THREE.TextureLoader();
+// Cooldown bar for shield skill
+const barWidth = 5, barHeight = 0.5;
+const barGeometry = new THREE.PlaneGeometry(barWidth, barHeight);
+barGeometry.translate(barWidth / 2, 0, 0);
+const barMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000 });
+const cooldownBar = new THREE.Mesh(barGeometry, barMaterial);
+cooldownBar.position.set(1, 0, 0);
 
+// Create the shield on sprite
+const shieldOnTexture = loader.load('./shield_on.png');
+const shieldOnMaterial = new THREE.SpriteMaterial({
+  map: shieldOnTexture,
+  transparent: true,
+  opacity: 0.0, // Have to start fully transparent
+  depthWrite: false
+});
+
+const shieldOn = new THREE.Sprite(shieldOnMaterial);
+shieldOn.scale.set(5, 5, 1);
+
+export function createUI() {
   // Load heart texture from image and place all UI items (hearts, score, timer)
   loader.load('heart.png', (heartTexture) => {
     const bounds = getCameraBounds();
@@ -71,6 +91,16 @@ export function createUI() {
     timerSprite.scale.set(4, 1, 1);
     timerSprite.position.set(bounds.minX + margin*12, bounds.maxY - margin*16, 0);
     scene.add(timerSprite);
+
+    // Sprite for shield skill
+    const textureLoader = new THREE.TextureLoader();
+    const spriteMaterial = new THREE.SpriteMaterial({ map: textureLoader.load('./shield.png') });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.position.set(bounds.minX + margin*8, bounds.minY + margin * 8, 0);
+    scene.add(sprite);
+
+    sprite.add(cooldownBar);
+    scene.add(shieldOn);
 
     return { updateScore, scoreSprite };
   });
@@ -118,5 +148,69 @@ export function reduceHP() {
   if (hearts.length > 0) {
     const heart = hearts.pop();
     scene.remove(heart);
+  }
+}
+
+let cooldown = 30;
+let lastActivated = -cooldown; 
+
+export const clock = new THREE.Clock();
+
+export function updateShieldReady() {
+  const elapsed = clock.getElapsedTime();
+  const timeSinceLast = elapsed - lastActivated;
+
+  // Animate cooldown bar
+  const ratio = Math.min(timeSinceLast / cooldown, 1);
+  cooldownBar.scale.x = ratio;
+
+  // Change the bar's colour to white when ready
+  cooldownBar.material.color.set(ratio >= 1 ? 0xFFFFFF : 0xFF0000);
+}
+
+// Keep shield positioned over player sprite
+function updateShieldPosition() {
+  const worldPos = new THREE.Vector3();
+  sprite.getWorldPosition(worldPos);
+  shieldOn.position.copy(worldPos);
+}
+
+export let isShieldOn = false;
+let shieldStartTime = 0;
+const shieldDuration = 5;
+
+export function useSkill() {
+  const elapsed = clock.getElapsedTime();
+    if (elapsed - lastActivated >= cooldown) {
+      lastActivated = elapsed;
+      activateShield();
+    }
+}
+
+function activateShield() {
+  shieldOn.visible = true;
+  shieldStartTime = clock.getElapsedTime();
+  isShieldOn = true;
+}
+
+const base = 0.35;
+const amplitude = 0.15;
+const speed = 1;
+
+export function updateShield() {
+  const time = clock.getElapsedTime();
+  const elapsed = time - shieldStartTime;
+  
+  if (shieldOn.visible) {
+    updateShieldPosition();
+  }
+
+  if (isShieldOn) {
+    shieldOnMaterial.opacity = base + amplitude * Math.sin(elapsed * speed * Math.PI);
+  }
+
+  if (elapsed >= shieldDuration) {
+    isShieldOn = false;
+    shieldOn.visible = false;
   }
 }
