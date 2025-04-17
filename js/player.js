@@ -56,19 +56,19 @@ export function setupPlayer() {
     }
 
     switch (e.key.toLowerCase()) {
-      case 'w': case 'ArrowUp': keyboard.up = true; break;
-      case 'a': case 'ArrowLeft': keyboard.left = true; break;
-      case 's': case 'ArrowDown': keyboard.down = true; break;
-      case 'd': case 'ArrowRight': keyboard.right = true; break;
+      case 'w': case 'arrowup': keyboard.up = true; break;
+      case 'a': case 'arrowleft': keyboard.left = true; break;
+      case 's': case 'arrowdown': keyboard.down = true; break;
+      case 'd': case 'arrowright': keyboard.right = true; break;
     }
   });
 
   document.addEventListener('keyup', (e) => {
     switch (e.key.toLowerCase()) {
-      case 'w': case 'ArrowUp': keyboard.up = false; break;
-      case 'a': case 'ArrowLeft': keyboard.left = false; break;
-      case 's': case 'ArrowDown': keyboard.down = false; break;
-      case 'd': case 'ArrowRight': keyboard.right = false; break;
+      case 'w': case 'arrowup': keyboard.up = false; break;
+      case 'a': case 'arrowleft': keyboard.left = false; break;
+      case 's': case 'arrowdown': keyboard.down = false; break;
+      case 'd': case 'arrowright': keyboard.right = false; break;
     }
   });  
 }
