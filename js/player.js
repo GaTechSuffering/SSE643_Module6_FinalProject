@@ -113,8 +113,24 @@ export function checkPlayerCollisions() {
         const seconds = elapsed % 60;
         const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
+        // Get existing highscores or initialize
+        let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+        // Add new score
+        highScores.push({ score, time: timeStr });
+
+        // Sort and keep only top 5
+        highScores.sort((a, b) => b.score - a.score);
+        highScores = highScores.slice(0, 5);
+
+        // Save back to localStorage
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+      
+        // Format high scores for display
+        const highScoreList = highScores.map((entry, index) => `${index + 1}. 🏆 ${entry.score} - ⏱️ ${entry.time}`).join('\n');
+
         // Game over screen with prompt to allow the user to play again
-        alert(`💀 Game over!\n🏆 Score: ${score}\n⏱️ Time Survived: ${timeStr}\n🔁 Click \'OK\' to play again.\n`);
+        alert(`💀 Game over!\n🏆 Score: ${score}\n⏱️ Time Survived: ${timeStr}\n\nHigh Scores:\n${highScoreList}\n\n🔁 Click \'OK\' to play again.\n`);
         resetGame();
       }
 
